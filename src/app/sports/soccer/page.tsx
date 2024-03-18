@@ -1,8 +1,41 @@
+"use client";
+
+import { useState } from "react";
 import "./styles.sass";
+import { classNames } from "@/utils/class-names";
+
+const tabs = [
+  { label: "Ao Vivo" },
+  { label: "Próximos" },
+  { label: "Resultados" },
+];
 
 export default function Home() {
+  const [selectedTab, setSelectedTab] = useState(0);
+
   return (
     <div className="card shadow-md rounded-lg p-4 bg-base-100">
+      <nav className="flex mb-4">
+        <div
+          role="tablist"
+          className="tabs tabs-boxed bg-transparent
+        "
+        >
+          {tabs.map((tab, index) => (
+            <span
+              key={tab.label}
+              role="tab"
+              className={classNames(
+                "tab",
+                index === selectedTab ? "tab-active" : ""
+              )}
+              onClick={() => setSelectedTab(index)}
+            >
+              {tab.label}
+            </span>
+          ))}
+        </div>
+      </nav>
       <div className="matches-card">
         <div>
           <div className="flag flag-br"></div>
