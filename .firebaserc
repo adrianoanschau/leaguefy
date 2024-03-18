@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "leaguefy-49752"
+  },
+  "targets": {
+    "leaguefyscore": {
+      "hosting": {
+        "leaguefy-49752": [
+          "leaguefyscore"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
