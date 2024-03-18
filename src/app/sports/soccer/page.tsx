@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import "./styles.sass";
+
+import { useState } from "react";
 import { classNames } from "@/utils/class-names";
 
 const tabs = [
@@ -60,14 +61,18 @@ export default function Home() {
               <div>Columbus Crew</div>
               <div>0 - 0</div>
               <div>New York RB</div>
-              <div></div>
+              <div>
+                <span className="transmission transmission-premiere"></span>
+              </div>
             </div>
             <div>
               <div>Live</div>
               <div>New York City</div>
               <div>0 - 0</div>
               <div>Toronto</div>
-              <div></div>
+              <div>
+                <span className="transmission transmission-sportv"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -97,14 +102,20 @@ export default function Home() {
               <div>Columbus Crew</div>
               <div>0 - 0</div>
               <div>New York RB</div>
-              <div></div>
+              <div>
+                <span className="transmission transmission-premiere"></span>
+                <span className="transmission transmission-sportv"></span>
+              </div>
             </div>
             <div>
               <div>Live</div>
               <div>New York City</div>
               <div>0 - 0</div>
               <div>Toronto</div>
-              <div></div>
+              <div>
+                <span className="transmission transmission-premiere"></span>
+                <span className="transmission transmission-sportv"></span>
+              </div>
             </div>
           </div>
         </div>
