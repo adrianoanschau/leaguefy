@@ -5,7 +5,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },

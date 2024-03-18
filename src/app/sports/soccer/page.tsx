@@ -2,8 +2,9 @@
 
 import "./styles.sass";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { classNames } from "@/utils/class-names";
+import { useCompetitionsData } from "@/contexts";
 
 const tabs = [
   { label: "Ao Vivo" },
@@ -13,6 +14,9 @@ const tabs = [
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const competitionsData = useCompetitionsData();
+
+  if (!competitionsData) return;
 
   return (
     <div className="card shadow-md rounded-lg p-4 bg-base-100">
@@ -37,126 +41,53 @@ export default function Home() {
           ))}
         </div>
       </nav>
-      <div className="matches-card">
-        <div>
-          <div className="flag flag-br"></div>
-          <div>
-            <span className="local">Brazil</span> -{" "}
-            <span className="competition">Série A</span>
-          </div>
-        </div>
-        <div>
-          <div className="head">
-            <div>
-              <div></div>
-              <div>Home</div>
-              <div></div>
-              <div>Away</div>
-              <div></div>
-            </div>
-          </div>
-          <div className="body">
-            <div>
-              <div>Live</div>
-              <div>Columbus Crew</div>
-              <div>0 - 0</div>
-              <div>New York RB</div>
+      {Object.values(competitionsData).map(
+        ({ countryName, countryAbbr, competitions }) =>
+          competitions.map(({ name: competitionName, matches }) => (
+            <div
+              key={`${countryName}-${competitionName}`}
+              className="matches-card"
+            >
               <div>
-                <span className="transmission transmission-premiere"></span>
+                <span
+                  className={classNames(
+                    "flag",
+                    `flag-${countryAbbr.toLowerCase()}`
+                  )}
+                ></span>
+                <div>
+                  <span className="local">{countryName}</span> -{" "}
+                  <span className="competition">{competitionName}</span>
+                </div>
+              </div>
+              <div>
+                <div className="head">
+                  <div>
+                    <div></div>
+                    <div>Home</div>
+                    <div></div>
+                    <div>Away</div>
+                    <div></div>
+                  </div>
+                </div>
+                <div className="body">
+                  {matches.map(({ home, away, score }) => (
+                    <div key={`${home}${away}${score}`}>
+                      <div>Live</div>
+                      <div>{home}</div>
+                      <div>{score}</div>
+                      <div>{away}</div>
+                      <div>
+                        <span className="transmission transmission-sportv"></span>
+                        <span className="transmission transmission-premiere"></span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <div>
-              <div>Live</div>
-              <div>New York City</div>
-              <div>0 - 0</div>
-              <div>Toronto</div>
-              <div>
-                <span className="transmission transmission-sportv"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="divider"></div>
-      <div className="matches-card">
-        <div>
-          <div className="flag flag-gb-eng"></div>
-          <div>
-            <span className="local">England</span> -{" "}
-            <span className="competition">Premier League</span>
-          </div>
-        </div>
-        <div>
-          <div className="head">
-            <div>
-              <div></div>
-              <div>Home</div>
-              <div></div>
-              <div>Away</div>
-              <div></div>
-            </div>
-          </div>
-          <div className="body">
-            <div>
-              <div>Live</div>
-              <div>Columbus Crew</div>
-              <div>0 - 0</div>
-              <div>New York RB</div>
-              <div>
-                <span className="transmission transmission-premiere"></span>
-                <span className="transmission transmission-sportv"></span>
-              </div>
-            </div>
-            <div>
-              <div>Live</div>
-              <div>New York City</div>
-              <div>0 - 0</div>
-              <div>Toronto</div>
-              <div>
-                <span className="transmission transmission-premiere"></span>
-                <span className="transmission transmission-sportv"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="divider"></div>
-      <div className="matches-card">
-        <div>
-          <div className="flag flag-de"></div>
-          <div>
-            <span className="local">Germany</span> -{" "}
-            <span className="competition">Bundesliga</span>
-          </div>
-        </div>
-        <div>
-          <div className="head">
-            <div>
-              <div></div>
-              <div>Home</div>
-              <div></div>
-              <div>Away</div>
-              <div></div>
-            </div>
-          </div>
-          <div className="body">
-            <div>
-              <div>Live</div>
-              <div>Columbus Crew</div>
-              <div>0 - 0</div>
-              <div>New York RB</div>
-              <div></div>
-            </div>
-            <div>
-              <div>Live</div>
-              <div>New York City</div>
-              <div>0 - 0</div>
-              <div>Toronto</div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
+          ))
+      )}
     </div>
   );
 }
